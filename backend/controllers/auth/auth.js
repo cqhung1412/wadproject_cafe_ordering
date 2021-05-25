@@ -60,10 +60,13 @@ exports.login = async (req, res, next) => {
     );
 
     res.status(200).json({
-      token,
-      userId: acc._id.toString(),
-      isAdmin: acc.isAdmin,
-      expireTime: 60 * 60 * 24000 // 5 hours
+      user: {
+        token,
+        userId: acc._id.toString(),
+        isAdmin: acc.isAdmin,
+        expireTime: 60 * 60 * 24000 // 5 hours
+      },
+      message: 'Login successfully :D'
     });
   } catch (error) {
     errorHandler(req, error, next);

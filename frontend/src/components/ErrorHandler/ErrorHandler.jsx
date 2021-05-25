@@ -1,8 +1,15 @@
 import React, { Fragment } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'antd'
 
 export const ErrorHandler = (props) => {
-  const { onHandle, error } = props;
+  const error = useSelector(state => state.error.error);
+
+  const dispatch = useDispatch();
+  const onHandle = () => {
+    dispatch({ type: 'HIDE_ERROR' });
+  }
+
   error && console.log(error);
   return (
     <Fragment>
