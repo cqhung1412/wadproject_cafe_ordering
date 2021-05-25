@@ -58,7 +58,7 @@ export default class LoginLayout extends Component {
                   Login
                 </Button>
               </Form.Item>
-              <Form.Item name="isAdminLogin" valuePropName="checked" initialValue={false}>
+              <Form.Item name="actions" valuePropName="checked" initialValue={false}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Button type='link' onClick={() => { }} >
                     Forgot your password D:

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 
 import LoginLayout from './layouts/LoginLayout';
+import SignupLayout from './layouts/SignupLayout';
 import Homepage from './pages/customer/Homepage';
 import { ErrorHandler } from './components/ErrorHandler/ErrorHandler';
 
@@ -38,6 +39,12 @@ class App extends Component {
     this.setAutoLogout(this.props.user.expireTime);
   };
 
+  signupHandler = (values) => {
+    this.setState({ loginLoading: true });
+    this.props.onCustomerSignup(values);
+    this.setState({ loginLoading: false });
+  }
+
   logoutHandler = () => {
     this.props.onLogout();
   };
@@ -60,6 +67,14 @@ class App extends Component {
             />
           )}
         />
+        <Route exact path='/signup'
+          render={props => (
+            <SignupLayout
+              onSignup={this.signupHandler}
+              submitLoading={loginLoading}
+            />
+          )}
+        />
         <Route path='/'
           render={props => (
             <Homepage />
@@ -74,7 +89,9 @@ class App extends Component {
           <Switch>
             <Route path='/'
               render={() => (
-                <Homepage />
+                <Homepage
+                  onLogout={this.logoutHandler}
+                />
               )}
             />
             <Redirect from='*' to='/' />
@@ -83,7 +100,9 @@ class App extends Component {
           <Switch>
             <Route path='/'
               render={() => (
-                <Homepage />
+                <Homepage
+                  onLogout={this.logoutHandler}
+                />
               )}
             />
             <Redirect from='*' to='/' />
