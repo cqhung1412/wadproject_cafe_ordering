@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+.header {
+  background-color: black;
+  color: whitesmoke;
+  height: 8vh;
+}
+
+.brand {
+  float: left;
+  width: 200px;
+  height: 15px;
+  margin: 16px 24px 16px 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.brand-name {
+  color: white;
+  font-size: 30px;
+  font-family: 'Pattaya', sans-serif;
+}
+
+.brand-name:hover {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.toggle {
+  background-color: whitesmoke;
+}
+
+.collapse {
+  background-color: black;
+  flex-grow: unset;
+}
+
+.navlink {
+  color: white;
+  font-size: 18px;
+  font-family: 'Lato', sans-serif;
+  text-decoration: none;
+  border-bottom: 5px solid transparent;
+  transition: 0.3s ease-in;
+}
+
+.navlink:hover {
+  text-decoration: none;
+  color: whitesmoke;
+  border-bottom: 5px solid brown;
+}
+
+.navlink-icon {
+  color: white;
+  font-size: 18px;
+  border-bottom: 10px solid transparent;
+}
+
+.navlink-icon:hover {
+  color: whitesmoke;
+}
+
+.dropdown-navlink {
+  color: gray;
+  transition: 0.3s ease;
+}
+
+.dropdown-navlink:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-navlink:focus:active {
+  background-color: black;
+  text-decoration: none;
+}

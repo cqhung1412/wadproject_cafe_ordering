@@ -1,56 +1,60 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Pattaya&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
 html {
     scroll-behavior: smooth;
-    font-family: 'Oswald', sans-serif;
-  }
+    font-family: 'Pattaya', sans-serif;
+}
 
-header{
+header {
     background-image: url(../img/home-1-slider.jpg);
     height: 800px;
     background-position: center;
     background-size: cover;
 }
-.header_left{
+
+.header_left {
     font-size: 35px;
     float: left;
 }
 
-.header_left a{
+.header_left a {
     color: white;
     text-decoration: none;
     margin: 15px;
 }
 
-.header_right{
+.header_right {
     float: right;
     padding-top: 15px;
 }
-.header_right ul li{
-    display: inline-block;
 
+.header_right ul li {
+    display: inline-block;
 }
-.header_right a{
-    color:white;
+
+.header_right a {
+    color: white;
     text-decoration: none;
     padding-left: 30px;
-   transition: 0.5s;
+    transition: 0.5s;
 }
 
-.header_right a:hover{
-    color:red;
+.header_right a:hover {
+    color: red;
 }
-.header_center{
+
+.header_center {
     color: white;
     text-align: center;
     padding-top: 200px;
 }
 
-.btn{
+.btn {
     color: white;
     border: 1px solid white;
     background: none;
@@ -58,106 +62,110 @@ header{
     padding: 5px;
     block-size: 60px;
     width: 300px;
-    font-size:10px;
+    font-size: 10px;
     cursor: pointer;
     transition: 0.8s;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: white;
-    color:black;
+    color: black;
 }
 
-.login-container{
+.login-container {
     text-align: center;
     padding-top: 150px;
     color: white;
 }
 
-.carousel{
+.carousel {
     background-color: #EAE7DE;
     height: 800px;
-    display:flex;
+    display: flex;
     max-width: 100%;
 }
-.carousel__content{
+
+.carousel__content {
     text-align: center;
     padding-top: 50px;
 }
-.carousel__title{
+
+.carousel__title {
     text-align: center;
 }
-.carousel__title h1{
+
+.carousel__title h1 {
     font-size: 30px;
 }
-.carousel__title hr{
+
+.carousel__title hr {
     border: 1px solid brown;
     width: 30%;
     margin: 0 auto;
 }
 
-
-.carousel__item{
+.carousel__item {
     display: inline-block;
     padding-top: 50px;
     width: 33%;
-
 }
-.carousel__img img{
+
+.carousel__img img {
     width: 80%;
 }
-.carousel__text{
+
+.carousel__text {
     text-align: left;
     padding-left: 50px;
     padding-top: 20px;
     font-size: 15px;
 }
-.carousel__text button{
-    color:#d49c63;
-    background-color:#EAE7DE ;
+
+.carousel__text button {
+    color: #d49c63;
+    background-color: #EAE7DE;
     cursor: pointer;
     font-weight: 1000;
     transition: 0.3s;
-
     border: 0;
-
-}
-.carousel__text button:hover{
-    color:red;
 }
 
-.application{
-    background-image: url(../img/home1-parallax-1.jpg) ;
+.carousel__text button:hover {
+    color: red;
+}
+
+.application {
+    background-image: url(../img/home1-parallax-1.jpg);
     height: 750px;
     background-position: 50% 43px;
     background-size: cover;
     box-shadow: #d49c63;
     border-radius: 0 0 50px 50px;
 }
-.application__content{
+
+.application__content {
     display: flex;
     width: 100%;
 }
 
-.application__left{
+.application__left {
     width: 50%;
     padding: 17% 13%;
-
 }
 
-.application__right{
-    
-    width:50%;
+.application__right {
+    width: 50%;
     padding: 15% 40px;
     color: white;
-    
 }
 
-.application__right hr{
+.application__right hr {
     border: 0.5px solid white;
     width: 30%;
 }
-.application__right button{
-    color:#EAE7DE;
+
+.application__right button {
+    color: #EAE7DE;
     background-color: #d49c63;
     cursor: pointer;
     font-weight: 1000;
@@ -166,27 +174,29 @@ header{
     border: 0;
     width: 30%;
 }
-.application__right button:hover{
-    color:black;
+
+.application__right button:hover {
+    color: black;
     background-color: white;
 }
 
-.activities{
-    display:flex;
+.activities {
+    display: flex;
     max-width: 100%;
-    
 }
-.activities__content{
+
+.activities__content {
     display: inline-flex;
     padding-top: 120px !important;
     font-size: 15px;
 }
-.activities__item{
+
+.activities__item {
     text-align: center;
     padding: 10px;
 }
 
-.contact{
+.contact {
     display: flex;
     background-color: black;
     height: 500px;
@@ -194,19 +204,23 @@ header{
     margin-top: 100px;
     font-size: 15px;
 }
-.opening-hours{
+
+.opening-hours {
     width: 25%;
 }
-.opening-hours p{
+
+.opening-hours p {
     padding-top: 10px;
-    
 }
-.latest-posts{
+
+.latest-posts {
     width: 25%;
 }
-.contact-us{
+
+.contact-us {
     width: 25%;
 }
-.other-location{
+
+.other-location {
     width: 25%;
 }

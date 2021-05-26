@@ -3,10 +3,11 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LoginLayout from './layouts/LoginLayout';
 import SignupLayout from './layouts/SignupLayout';
-import Homepage from './pages/customer/Homepage';
+import CustomerLayout from './layouts/CustomerLayout';
 import { ErrorHandler } from './components/ErrorHandler/ErrorHandler';
 
 import * as actionCreators from './store/actions/index'
@@ -77,7 +78,7 @@ class App extends Component {
         />
         <Route path='/'
           render={props => (
-            <Homepage />
+            <CustomerLayout />
           )}
         />
       </Switch>
@@ -89,7 +90,7 @@ class App extends Component {
           <Switch>
             <Route path='/'
               render={() => (
-                <Homepage
+                <CustomerLayout
                   onLogout={this.logoutHandler}
                 />
               )}
@@ -100,7 +101,7 @@ class App extends Component {
           <Switch>
             <Route path='/'
               render={() => (
-                <Homepage
+                <CustomerLayout
                   onLogout={this.logoutHandler}
                 />
               )}
