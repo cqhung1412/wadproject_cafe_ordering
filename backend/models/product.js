@@ -13,6 +13,10 @@ const productSchema = new Schema({
     set: v => Math.round(v),
     required: true
   },
+  category: {
+    type: String,
+    required: true
+  },
   desc: String,
   isMustTry: Boolean,
   sizes: [{
@@ -31,7 +35,6 @@ const productSchema = new Schema({
       set: v => Math.round(v),
     }
   }]
-
 });
 
 module.exports = mongoose.model('Product', productSchema);

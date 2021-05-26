@@ -3,13 +3,15 @@ import { Switch, Route, Redirect, NavLink } from "react-router-dom"
 import { NavDropdown } from 'react-bootstrap'
 import { Bag, PersonCircle } from 'react-bootstrap-icons'
 
+import './CustomerLayout.css'
 import NavHeader from '../components/Navigation/NavHeader/NavHeader'
 import Homepage from '../pages/customer/Homepage/Homepage'
+import Menu from '../pages/customer/Menu/Menu'
 
 export default class CustomerLayout extends Component {
   render() {
     return (
-      <div className='w-100'>
+      <div className='w-100 layout-container'>
         <NavHeader
           elements={[
             { key: 'home', to: '/', text: 'Home' },
@@ -39,6 +41,7 @@ export default class CustomerLayout extends Component {
         />
         <Switch>
           <Route path='/' exact render={() => <Homepage />} />
+          <Route path='/menu' exact render={() => <Menu />} />
           <Redirect to='/' />
         </Switch>
       </div>

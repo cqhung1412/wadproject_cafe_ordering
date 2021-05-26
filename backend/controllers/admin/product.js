@@ -98,7 +98,7 @@ exports.updateProduct = async (req, res, next) => {
     product.toppings = toppings && toppings;
     await product.save();
 
-    res.status(201).json({
+    res.status(200).json({
       message: 'Updated product :D',
       product
     });
