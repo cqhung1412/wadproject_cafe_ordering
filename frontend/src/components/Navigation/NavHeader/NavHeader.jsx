@@ -6,7 +6,7 @@ import './NavHeader.css'
 
 const NavHeader = (props) => {
   const { elements } = props
-
+  console.log(elements)
   return (
     <Navbar className='header sticky-top align-items-center justify-content-center' expand="lg">
       <Navbar.Brand className='brand'>
@@ -17,7 +17,11 @@ const NavHeader = (props) => {
       <Navbar.Collapse className='collapse' id="basic-navbar-nav">
         <Nav className="align-items-center justify-content-between">
           {elements.map(e => (
-            e.render ? e.render : <NavLink className='navlink mr-4' key={e.key} to={e.to}>{e.text}</NavLink>
+            e.render ? e.render : (
+              e.to[0] === '/' 
+              ? <NavLink className='navlink mr-4' key={e.key} to={e.to}>{e.text}</NavLink>
+              : <a className='navlink mr-4' key={e.key} href={e.to}>{e.text}</a>
+            )
           ))}
         </Nav>
       </Navbar.Collapse>

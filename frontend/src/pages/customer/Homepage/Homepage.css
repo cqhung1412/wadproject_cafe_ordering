@@ -1,3 +1,18 @@
 .banner {
   height: 92vh;
 }
+
+.mobile-banner {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .banner {
+    display: none;
+  }
+
+  .mobile-banner {
+    display: block;
+    height: 92vh;
+  }
+}
