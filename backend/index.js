@@ -14,6 +14,7 @@ const cors = require('cors');               // preventing cors error
 const mongooseUri = require('./util/database');
 
 const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
 });
 
 app.use(authRoutes);
+app.use('/admin', adminRoutes);
 
 app.use((req, res) => {
   const { error } = req;
@@ -74,4 +76,5 @@ mongoose.connect(
       });
     });
   })
+  .then(() => console.log('Running on port: ' + (process.env.PORT || 8080)))
   .catch(err => console.log(err));

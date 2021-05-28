@@ -22,6 +22,7 @@ const {
 const {
   getProduct,
   getProducts,
+  getProductsByCategories,
   createProduct,
   updateProduct,
   deleteProduct
@@ -40,7 +41,7 @@ const Router = express.Router();
 // Products
 //________________________________________________________________
 // GET /admin/products
-Router.get('/products', isAuth, getProducts);
+Router.get('/products', /*isAuth,*/ getProductsByCategories);
 
 // GET /admin/product/:productId
 Router.get('/product/:productId', isAuth, getProduct);
@@ -50,10 +51,13 @@ Router.post('/product',
   [
     body('name').trim()
       .isLength({ min: 5 }),
-    body('price')
+    body('unitPrice')
       .isNumeric(),
     body('isMustTry')
       .isBoolean(),
+    body('category').trim()
+      .isLength({ min: 2 })
+      .not().isEmpty(),
     body('desc').trim()
       .isLength({ min: 5 }),
     body('sizes')
@@ -61,7 +65,7 @@ Router.post('/product',
     body('toppings')
       .isArray({ min: 0 })
   ],
-  isAuth,
+  /*isAuth,*/
   createProduct
 );
 

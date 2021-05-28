@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const discountSchema = new Schema({
   code: String,
-  on: String,
+  discountOn: String,
   percent: {
     type: Number,
     get: v => Math.round(v),

@@ -18,6 +18,31 @@ exports.getProducts = async (req, res, next) => {
   }
 };
 
+exports.getProductsByCategories = async (req, res, next) => {
+  try {
+    const agg = await Product.aggregate([
+      {
+        $group: {
+          _id: '$category',
+          products: {
+            $push: {
+              name: '$name',
+              unitPrice: '$unitPrice',
+              desc: '$desc',
+              isMustTry: '$isMustTry',
+              sizes: '$sizes',
+              toppings: '$toppings'
+            }
+          }
+        }
+      }
+    ]);
+    res.json({ agg })
+  } catch (error) {
+    errorHandler(req, error, next);
+  }
+};
+
 exports.deleteProduct = async (req, res, next) => {
   try {
     const { productId } = req.params;
@@ -58,12 +83,13 @@ exports.createProduct = async (req, res, next) => {
     if (!errors.isEmpty())
       throw createError('Validation failed D:', 422, errors.array());
 
-    const { name, unitPrice, desc, isMustTry, sizes, toppings } = req.body;
+    const { name, unitPrice, desc, category, isMustTry, sizes, toppings } = req.body;
 
     const newProduct = new Product({
       name,
       unitPrice,
       desc,
+      category,
       isMustTry,
       sizes: sizes && sizes,
       toppings: toppings && toppings
