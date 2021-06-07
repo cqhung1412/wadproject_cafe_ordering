@@ -18,6 +18,7 @@ const onLoginFailed = error => {
 export const logout = () => {
   return dispatch => {
     localStorage.removeItem('user');
+    localStorage.removeItem('isAuth');
     dispatch({ type: actionTypes.LOGOUT });
   };
 }

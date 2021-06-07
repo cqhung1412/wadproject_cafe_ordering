@@ -38,6 +38,21 @@
   transition: 0.3s ease;
 }
 
+.navlist {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 800px) {
+  .navlist {
+    align-items: flex-start;
+  }
+  .navlist:first-child {
+    margin-top: 10px;
+  }
+}
+
 .navlink {
   color: white;
   font-size: 18px;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route, Redirect, NavLink } from "react-router-dom"
-import { NavDropdown } from 'react-bootstrap'
-import { Bag, PersonCircle } from 'react-bootstrap-icons'
+import { Switch, Route, Redirect } from "react-router-dom"
 
 import './CustomerLayout.css'
 import NavHeader from '../components/Navigation/NavHeader/NavHeader'
@@ -18,27 +16,7 @@ export default class CustomerLayout extends Component {
             { key: 'story', to: '#story', text: 'Hut Story' },
             { key: 'offer', to: '#offer', text: 'Our Products' },
             { key: 'promo', to: '#promo', text: 'Promotions' },
-            { key: 'menu', to: '/menu', text: 'Menu' },
-            {
-              key: 'cart', render: (
-                <NavLink className='navlink-icon ml-3' to='/cart'><Bag /></NavLink>
-              )
-            },
-            {
-              key: 'account', render: (
-                <NavDropdown className='navlink-icon ml-2' title={<PersonCircle fill='white' />} id="basic-nav-dropdown">
-                  <NavDropdown.Item>
-                    <NavLink className='dropdown-navlink' to='/profile'>Your Profile</NavLink></NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <NavLink className='dropdown-navlink' to='/orders'>Your Orders</NavLink>
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item>
-                    <NavLink className='dropdown-navlink' to='/logout'>Logout</NavLink>
-                  </NavDropdown.Item>
-                </NavDropdown>
-              )
-            }
+            { key: 'menu', to: '/menu', text: 'Menu' }
           ]}
         />
         <Switch>
@@ -50,3 +28,5 @@ export default class CustomerLayout extends Component {
     )
   }
 }
+
+
