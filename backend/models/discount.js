@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ttl = require('mongoose-ttl');
 const Schema = mongoose.Schema;
 
 const discountSchema = new Schema({
@@ -13,6 +12,5 @@ const discountSchema = new Schema({
 }, {
   timestamps: true,
 });
-discountSchema.plugin(ttl, { ttl: '30d' });
 
 module.exports = mongoose.model('Discount', discountSchema);
