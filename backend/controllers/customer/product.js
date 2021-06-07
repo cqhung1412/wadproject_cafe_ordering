@@ -33,6 +33,11 @@ exports.getProductsByCategories = async (req, res, next) => {
             }
           }
         }
+      },
+      {
+        $sort: {
+          _id: 1
+        }
       }
     ]);
     const result = agg.map(a => {

@@ -66,7 +66,7 @@ const AntForm = props => {
       >
         {props.children}
       </Form>
-    </Modal >
+    </Modal>
   );
 };
 
