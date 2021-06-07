@@ -4,6 +4,7 @@ import { createLogger } from 'redux-logger';
 
 import authReducer from './reducers/auth';
 import errorReducer from './reducers/error';
+import productReducer from './reducers/product';
 
 const loggerMiddleware = createLogger();
 
@@ -15,7 +16,8 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  error: errorReducer
+  error: errorReducer,
+  prod: productReducer
 });
 
 const store = createStore(

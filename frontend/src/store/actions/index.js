@@ -9,3 +9,7 @@ export {
   setError,
   hideError
 } from './error';
+
+export {
+  getProductsGroupByCategories
+} from './product'

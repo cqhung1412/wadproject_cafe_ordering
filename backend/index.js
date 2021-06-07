@@ -15,6 +15,7 @@ const mongooseUri = require('./util/database');
 
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
+const customerRoutes = require('./routes/customer');
 
 const app = express();
 
@@ -44,7 +45,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(authRoutes);
+app.use(customerRoutes);
+app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 
 app.use((req, res) => {

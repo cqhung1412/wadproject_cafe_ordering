@@ -11,7 +11,7 @@ const Router = express.Router();
 
 // Authorization
 //________________________________________________________________
-// POST /signup
+// POST /auth/signup
 Router.post('/signup',
   [
     body('email')
@@ -40,7 +40,7 @@ Router.post('/signup',
   authController.customerSignup
 );
 
-// POST /login
+// POST /auth/login
 Router.post('/login',
   [
     body('email')

@@ -26,7 +26,7 @@ export const logout = () => {
 export const login = (formValues) => {
   return dispatch => {
     dispatch({ type: actionTypes.LOGIN });
-    axios.post('/login', formValues)
+    axios.post('/auth/login', formValues)
       .then(res => res.data.user)
       .then(user => {
         const expiryTime = new Date(new Date().getTime() + user.expireTime);
@@ -57,7 +57,7 @@ export const adminSignup = (formValues) => {
 export const customerSignup = (formValues) => {
   return dispatch => {
     dispatch({ type: actionTypes.CUSTOMER_SIGNUP });
-    axios.post('/signup', formValues)
+    axios.post('/auth/signup', formValues)
       .then(res => {
         if (res.status === 201 || 200)
           dispatch({ type: actionTypes.SIGNUP_SUCCESS });
