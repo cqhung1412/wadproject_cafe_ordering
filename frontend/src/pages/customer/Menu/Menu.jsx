@@ -46,12 +46,14 @@ class Menu extends Component {
   onCancelForm = () => this.setState({
     selectedProduct: null,
     selectedTotalPrice: 0,
+    lastSelectedSizePrice: 0,
     isOpenForm: false
   })
 
   openForm = (product) => this.setState({
     selectedProduct: product,
-    selectedTotalPrice: product.unitPrice
+    selectedTotalPrice: product.unitPrice,
+    lastSelectedSizePrice: 0
   }, () => this.setState({ isOpenForm: true }))
 
   calculateTotalPrice = (addedPrice, isAdding, forSize = false) => {
@@ -93,7 +95,6 @@ class Menu extends Component {
             message: 'Please select the size!',
             type: 'string'
           }]}
-        // initialValue={selectedProduct && selectedProduct.sizes[0].size}
         >
           <Radio.Group>
             {
