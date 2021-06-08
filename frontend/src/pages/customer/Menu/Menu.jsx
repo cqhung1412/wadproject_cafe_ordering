@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
-import { Spin } from 'antd'
+import { Spin, Input, Radio, Checkbox, InputNumber, Form } from 'antd'
 import { Container, Row, Col, Media } from 'react-bootstrap'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import './Menu.css'
@@ -10,7 +10,6 @@ import placeholder from '../../../assets/images/placeholder.svg'
 import * as actionCreators from '../../../store/actions/index'
 
 import AntForm from '../../../components/AntForm/AntForm'
-import { Fragment } from 'react'
 
 const numberToVND = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫';
@@ -20,7 +19,10 @@ class Menu extends Component {
   state = {
     activeCategory: '',
     isLoading: false,
-    isOpenForm: false
+    isOpenForm: false,
+    selectedProduct: null,
+    selectedTotalPrice: 0,
+    lastSelectedSizePrice: 0
   }
 
   componentDidMount() {
@@ -35,26 +37,121 @@ class Menu extends Component {
     });
   }
 
-  toggleForm = () => this.setState({
-    isOpenForm: !this.state.isOpenForm
+  toggleForm = (product) => this.setState({
+    selectedProduct: this.state.isOpenForm ? null : product,
+    selectedTotalPrice: this.state.isOpenForm ? 0 : product.unitPrice,
+    isOpenForm: !this.state.isOpenForm,
   })
+
+  onCancelForm = () => this.setState({
+    selectedProduct: null,
+    selectedTotalPrice: 0,
+    isOpenForm: false
+  })
+
+  openForm = (product) => this.setState({
+    selectedProduct: product,
+    selectedTotalPrice: product.unitPrice
+  }, () => this.setState({ isOpenForm: true }))
+
+  calculateTotalPrice = (addedPrice, isAdding, forSize = false) => {
+    const { selectedTotalPrice, lastSelectedSizePrice } = this.state;
+    forSize
+      ? this.setState({
+        selectedTotalPrice: parseInt(selectedTotalPrice - lastSelectedSizePrice + addedPrice),
+        lastSelectedSizePrice: addedPrice
+      })
+      : this.setState({
+        selectedTotalPrice: isAdding
+          ? parseInt(selectedTotalPrice + addedPrice)
+          : parseInt(selectedTotalPrice - addedPrice)
+      });
+  }
 
   render() {
     const productsGroupByCategories = this.props.products;
-    const { activeCategory, isLoading, isOpenForm } = this.state;
+    const { activeCategory, isLoading, isOpenForm, selectedProduct, selectedTotalPrice } = this.state;
 
     const form = (
       <AntForm
         visible={isOpenForm}
-        title={'Add To Cart'}
+        title={`Add To Cart ${selectedProduct && selectedProduct.name}`}
         loading={false}
         layout={null}
         id={'cartForm'}
+        initialValues={isOpenForm ? selectedProduct : null}
         onFinish={(values) => console.log(values)}
-        onFinishFailed={this.toggleForm}
-        onCancel={this.toggleForm}
+        onFinishFailed={this.onCancelForm}
+        onCancel={this.onCancelForm}
+        submitButtonText={`Add To Cart (${numberToVND(selectedTotalPrice)})`}
       >
-
+        <Form.Item
+          name='size'
+          label='Size'
+          rules={[{
+            required: true,
+            message: 'Please select the size!',
+            type: 'string'
+          }]}
+        // initialValue={selectedProduct && selectedProduct.sizes[0].size}
+        >
+          <Radio.Group>
+            {
+              selectedProduct && selectedProduct.sizes.map((s, index) => (
+                <Radio
+                  key={index} value={s.size}
+                  onChange={(event) => this.calculateTotalPrice(s.additionalPrice, event.target.checked, true)}
+                >
+                  {`${s.size} (+${numberToVND(s.additionalPrice)})`}
+                </Radio>
+              ))
+            }
+          </Radio.Group>
+        </Form.Item>
+        {selectedProduct && selectedProduct.toppings.length > 0 &&
+          <Form.Item
+            name='toppings'
+            label='Toppings'
+            rules={[{
+              required: false,
+              type: 'array'
+            }]}
+          >
+            <Checkbox.Group>
+              {
+                selectedProduct && selectedProduct.toppings.map((t, index) => (
+                  <Checkbox
+                    key={index} value={t.name}
+                    onChange={(event) => this.calculateTotalPrice(t.additionalPrice, event.target.checked)}
+                  >
+                    {`${t.name} (+${numberToVND(t.additionalPrice)})`}
+                  </Checkbox>
+                ))
+              }
+            </Checkbox.Group>
+          </Form.Item>}
+        <Form.Item
+          name='note'
+          label='Note'
+          rules={[{
+            type: 'string'
+          }]}
+          initialValue=''
+        >
+          <Input.TextArea placeholder='Add note for this drink...' />
+        </Form.Item>
+        <Form.Item
+          name='quantity'
+          label='Quantity'
+          rules={[{
+            type: 'number',
+            required: true,
+            message: 'Please select the right quantity!'
+          }]}
+          initialValue={1}
+        >
+          <InputNumber min={1} max={10} />
+        </Form.Item>
       </AntForm>
     );
 
@@ -81,7 +178,7 @@ class Menu extends Component {
                       <h4 style={{ color: 'orange' }}>{c.category}</h4>
                       <ul className='prod-ul'>
                         {c.products.map(p => (
-                          <li className='prod-li'>
+                          <li className='prod-li' key={p.name}>
                             <Media className='prod-media'>
                               <img
                                 width={64}
@@ -95,7 +192,7 @@ class Menu extends Component {
                                 <p>{p.desc}</p>
                                 <h6 style={{ color: 'darkorange' }} className='m-0'>{numberToVND(p.unitPrice)}</h6>
                               </Media.Body>
-                              <PlusCircleFill className='add-to-cart' onClick={this.toggleForm} />
+                              <PlusCircleFill className='add-to-cart' onClick={() => this.openForm(p)} />
                             </Media>
                           </li>
                         ))}

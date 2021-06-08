@@ -7,7 +7,8 @@ const AntForm = props => {
   const {
     visible, title, loading,
     layout, id, initialValues,
-    onFinish, onFinishFailed, onCancel
+    onFinish, onFinishFailed, onCancel,
+    submitButtonText
   } = props;
 
   return (
@@ -36,7 +37,7 @@ const AntForm = props => {
             form.resetFields();
           }}
         >
-          Submit
+          {submitButtonText}
         </Button>,
         <Button
           key='reset'

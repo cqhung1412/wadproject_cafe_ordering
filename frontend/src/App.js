@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.less';
 
 import LoginLayout from './layouts/LoginLayout';
 import SignupLayout from './layouts/SignupLayout';

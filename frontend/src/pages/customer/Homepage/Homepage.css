@@ -1,5 +1,5 @@
 .banner {
-  height: 92vh;
+  height: 100vh;
 }
 
 .mobile-banner {
@@ -13,6 +13,6 @@
 
   .mobile-banner {
     display: block;
-    height: 92vh;
+    height: 100vh;
   }
 }
