@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Spin, Input, Radio, Checkbox, InputNumber, Form } from 'antd'
 import { Container, Row, Col, Media } from 'react-bootstrap'
 import { PlusCircleFill } from 'react-bootstrap-icons'
-import './Menu.css'
+import './Menu.less'
 import placeholder from '../../../assets/images/placeholder.svg'
 
 import * as actionCreators from '../../../store/actions/index'

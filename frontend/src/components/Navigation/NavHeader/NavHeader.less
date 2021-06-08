@@ -1,0 +1,83 @@
+@import "https://fonts.googleapis.com/css2?family=Pattaya&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Lato&display=swap";
+.header {
+	background-color: #0f0e0c;
+	color: whitesmoke;
+	height: 8vh;
+}
+.brand {
+	float: left;
+	width: 200px;
+	height: 15px;
+	margin: 16px 24px 16px 0;
+	background: #0f0e0c;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.brand-name {
+	color: white;
+	font-size: 30px;
+	font-family: 'Pattaya', sans-serif;
+	&:hover {
+		text-decoration: none;
+		color: whitesmoke;
+	}
+}
+.toggle {
+	background-color: whitesmoke;
+}
+.collapse {
+	background-color: #0f0e0c;
+	flex-grow: unset;
+	transition: 0.3s ease;
+}
+.navlist {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.navlink {
+	color: white;
+	font-size: 18px;
+	font-family: 'Lato', sans-serif;
+	text-decoration: none;
+	border-bottom: 5px solid transparent;
+	transition: 0.3s ease-in;
+	&:hover {
+		text-decoration: none;
+		color: whitesmoke;
+		border-bottom: 5px solid brown;
+	}
+}
+.navlink-icon {
+	color: white;
+	font-size: 18px;
+	border-bottom: 10px solid transparent;
+	&:hover {
+		color: whitesmoke;
+	}
+}
+.dropdown-navlink {
+	color: gray;
+	transition: 0.3s ease;
+	text-decoration: none;
+	&:hover {
+		color: #0f0e0c;
+		text-decoration: none;
+	}
+	&:focus {
+		&:active {
+			background-color: #0f0e0c;
+			text-decoration: none;
+		}
+	}
+}
+@media only screen and (max-width: 800px) {
+	.navlist {
+		align-items: flex-start;
+		&:first-child {
+			margin-top: 10px;
+		}
+	}
+}

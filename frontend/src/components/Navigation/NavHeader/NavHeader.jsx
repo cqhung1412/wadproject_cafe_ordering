@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import { Navbar, Nav, Image, Button, Badge } from 'react-bootstrap'
 import logo from '../../../assets/images/coffee_logo.png'
-import './NavHeader.css'
+import './NavHeader.less'
 
 const NavHeader = (props) => {
   const { elements } = props

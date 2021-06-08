@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from "react-router-dom"
 
-import './CustomerLayout.css'
+import './CustomerLayout.less'
 import NavHeader from '../components/Navigation/NavHeader/NavHeader'
 import Homepage from '../pages/customer/Homepage/Homepage'
 import Menu from '../pages/customer/Menu/Menu'

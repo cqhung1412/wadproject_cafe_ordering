@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { Form, Input, Button, Image, Typography } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
-import './LoginLayout.css'
+import './LoginLayout.less'
 import logo from '../assets/images/coffee.svg'
 
 const { Title } = Typography;

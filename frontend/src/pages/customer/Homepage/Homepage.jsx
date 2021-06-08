@@ -17,7 +17,7 @@ import mobileoffer from '../../../assets/images/mobile-offer.gif'
 import mobilepromo from '../../../assets/images/mobile-promo.gif'
 import mobilecontact from '../../../assets/images/mobile-contact.png'
 
-import './Homepage.css'
+import './Homepage.less'
 
 const LazyImageWrapper = props => (
   <div className={`w-100 ${props.isMobile ? 'mobile-' : ''}banner`} id={props.id}>
