@@ -9,7 +9,7 @@ const NavHeader = (props) => {
   const { elements } = props
 
   const isAuth = useSelector(state => state.auth.isAuth);
-  const cartItems = useSelector(state => state.auth.user ? (state.auth.user.cart ? [1, 2, 3] : [1]) : []);
+  const cartItems = useSelector(state => state.cart ? (state.cart.cart ? state.cart.cart : []) : []);
   const isAdmin = useSelector(state => state.auth.user ? state.auth.user.isAdmin : false);
 
   const dispatch = useDispatch();

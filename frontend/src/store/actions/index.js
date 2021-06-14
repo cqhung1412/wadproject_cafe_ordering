@@ -12,4 +12,8 @@ export {
 
 export {
   getProductsGroupByCategories
-} from './product'
+} from './product';
+
+export {
+  addProductToCart
+} from './cart';

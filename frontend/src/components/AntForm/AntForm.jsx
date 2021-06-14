@@ -7,7 +7,7 @@ const AntForm = props => {
   const {
     visible, title, loading,
     layout, id, initialValues,
-    onFinish, onFinishFailed, onCancel,
+    onFinish, onCancel,
     submitButtonText
   } = props;
 
@@ -19,7 +19,7 @@ const AntForm = props => {
         form.validateFields()
           .then(values => onFinish(values))
           .then(res => form.resetFields())
-          .catch(info => onFinishFailed(info));
+          .catch(info => console.log(info));
       }}
       onCancel={() => {
         onCancel();
@@ -33,7 +33,6 @@ const AntForm = props => {
           onClick={async () => {
             await form.validateFields()
               .then(values => onFinish(values))
-              .catch(info => onFinishFailed(info));
             form.resetFields();
           }}
         >

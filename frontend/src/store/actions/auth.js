@@ -32,7 +32,8 @@ export const login = (formValues) => {
         const expiryTime = new Date(new Date().getTime() + user.expireTime);
         const updatedUser = {
           ...user,
-          expireTime: expiryTime.toISOString()
+          expireTime: expiryTime.toISOString(),
+          cart: []
         };
         localStorage.setItem('user', JSON.stringify(updatedUser));
         return updatedUser;

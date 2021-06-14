@@ -33,7 +33,7 @@ export default class LoginLayout extends Component {
           </ul>
           <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
             <Image src={logo} width={50} preview={false} />
-            <Title level={1} style={{ marginLeft: '10px', color: 'whitesmoke' }} >Presence</Title>
+            <Title level={1} style={{ marginLeft: '10px', color: 'whitesmoke' }}>Coffee•Hut</Title>
           </div>
           <div>
             <Form

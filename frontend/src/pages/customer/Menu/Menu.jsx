@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
-import { Spin, Input, Radio, Checkbox, InputNumber, Form } from 'antd'
+import { Spin, Input, Radio, InputNumber, Form } from 'antd'
 import { Container, Row, Col, Media } from 'react-bootstrap'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import './Menu.less'
@@ -22,7 +22,8 @@ class Menu extends Component {
     isOpenForm: false,
     selectedProduct: null,
     selectedTotalPrice: 0,
-    lastSelectedSizePrice: 0
+    lastSelectedSizePrice: 0,
+    lastSelectedQuantity: 1
   }
 
   componentDidMount() {
@@ -40,6 +41,8 @@ class Menu extends Component {
   toggleForm = (product) => this.setState({
     selectedProduct: this.state.isOpenForm ? null : product,
     selectedTotalPrice: this.state.isOpenForm ? 0 : product.unitPrice,
+    lastSelectedSizePrice: 0,
+    lastSelectedQuantity: 1,
     isOpenForm: !this.state.isOpenForm,
   })
 
@@ -47,32 +50,75 @@ class Menu extends Component {
     selectedProduct: null,
     selectedTotalPrice: 0,
     lastSelectedSizePrice: 0,
+    lastSelectedQuantity: 1,
     isOpenForm: false
   })
 
   openForm = (product) => this.setState({
     selectedProduct: product,
     selectedTotalPrice: product.unitPrice,
-    lastSelectedSizePrice: 0
+    lastSelectedSizePrice: 0,
+    lastSelectedQuantity: 1
   }, () => this.setState({ isOpenForm: true }))
 
   calculateTotalPrice = (addedPrice, isAdding, forSize = false) => {
-    const { selectedTotalPrice, lastSelectedSizePrice } = this.state;
+    const { selectedTotalPrice, lastSelectedSizePrice, lastSelectedQuantity } = this.state;
     forSize
       ? this.setState({
-        selectedTotalPrice: parseInt(selectedTotalPrice - lastSelectedSizePrice + addedPrice),
+        selectedTotalPrice: parseInt(selectedTotalPrice - lastSelectedSizePrice * lastSelectedQuantity + addedPrice * lastSelectedQuantity),
         lastSelectedSizePrice: addedPrice
       })
       : this.setState({
         selectedTotalPrice: isAdding
-          ? parseInt(selectedTotalPrice + addedPrice)
-          : parseInt(selectedTotalPrice - addedPrice)
+          ? parseInt(selectedTotalPrice + addedPrice * lastSelectedQuantity)
+          : parseInt(selectedTotalPrice - addedPrice * lastSelectedQuantity)
       });
+  }
+
+  onQuantityChange = (quantity) => {
+    const { lastSelectedQuantity, selectedTotalPrice } = this.state;
+    const unitPrice = parseInt(selectedTotalPrice / lastSelectedQuantity);
+    const newTotalPrice = parseInt(unitPrice * quantity);
+    this.setState({
+      lastSelectedQuantity: quantity,
+      selectedTotalPrice: newTotalPrice
+    });
+  }
+
+  onSubmitToCart = (values) => {
+    const { selectedProduct, selectedTotalPrice } = this.state;
+    console.log(values)
+    const productDetails = {
+      productId: selectedProduct.productId,
+      name: selectedProduct.name,
+      unitPrice: selectedProduct.unitPrice,
+      note: values.note,
+      size: {
+        name: values.size,
+        unitPrice: selectedProduct.sizes.find(s => s.size === values.size).additionalPrice
+      },
+      // toppings: values.toppings ? values.toppings.map(topping => {
+      //   return {
+      //     name: topping.name,
+      //     unitPrice: topping.additionalPrice
+      //   };
+      // }) : [],
+      quantity: values.quantity,
+      totalPrice: selectedTotalPrice
+    };
+    this.props.onAddToCart(productDetails);
+    this.setState({
+      selectedProduct: null,
+      selectedTotalPrice: 0,
+      lastSelectedSizePrice: 0,
+      lastSelectedQuantity: 1,
+      isOpenForm: false
+    });
   }
 
   render() {
     const productsGroupByCategories = this.props.products;
-    const { activeCategory, isLoading, isOpenForm, selectedProduct, selectedTotalPrice } = this.state;
+    const { activeCategory, isLoading, isOpenForm, selectedProduct, selectedTotalPrice, lastSelectedQuantity } = this.state;
 
     const form = (
       <AntForm
@@ -82,8 +128,7 @@ class Menu extends Component {
         layout={null}
         id={'cartForm'}
         initialValues={isOpenForm ? selectedProduct : null}
-        onFinish={(values) => console.log(values)}
-        onFinishFailed={this.onCancelForm}
+        onFinish={this.onSubmitToCart}
         onCancel={this.onCancelForm}
         submitButtonText={`Add To Cart (${numberToVND(selectedTotalPrice)})`}
       >
@@ -109,7 +154,8 @@ class Menu extends Component {
             }
           </Radio.Group>
         </Form.Item>
-        {selectedProduct && selectedProduct.toppings.length > 0 &&
+        {/* TODO: add state checkedList and onCheckboxGroupChange */}
+        {/* {selectedProduct && selectedProduct.toppings.length > 0 &&
           <Form.Item
             name='toppings'
             label='Toppings'
@@ -130,7 +176,7 @@ class Menu extends Component {
                 ))
               }
             </Checkbox.Group>
-          </Form.Item>}
+          </Form.Item>} */}
         <Form.Item
           name='note'
           label='Note'
@@ -149,9 +195,9 @@ class Menu extends Component {
             required: true,
             message: 'Please select the right quantity!'
           }]}
-          initialValue={1}
+          initialValue={lastSelectedQuantity}
         >
-          <InputNumber min={1} max={10} />
+          <InputNumber min={1} max={10} onChange={this.onQuantityChange} />
         </Form.Item>
       </AntForm>
     );
@@ -190,7 +236,7 @@ class Menu extends Component {
                               />
                               <Media.Body>
                                 <h5 style={{ color: 'darkorange' }}>{p.name}</h5>
-                                <p>{p.desc}</p>
+                                <p>{p.description}</p>
                                 <h6 style={{ color: 'darkorange' }} className='m-0'>{numberToVND(p.unitPrice)}</h6>
                               </Media.Body>
                               <PlusCircleFill className='add-to-cart' onClick={() => this.openForm(p)} />
@@ -221,7 +267,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onMount: () => dispatch(actionCreators.getProductsGroupByCategories())
+    onMount: () => dispatch(actionCreators.getProductsGroupByCategories()),
+    onAddToCart: (product) => dispatch(actionCreators.addProductToCart(product)),
+    onError: (error) => dispatch(actionCreators.setError(error))
   };
 };
 

@@ -5,7 +5,7 @@ const orderSchema = new Schema({
   products: [{
     productId: {
       type: mongoose.Types.ObjectId,
-      ref: 'Product'  
+      ref: 'Product'
     },
     name: String,
     unitPrice: {
@@ -13,7 +13,6 @@ const orderSchema = new Schema({
       get: v => Math.round(v),
       set: v => Math.round(v),
     },
-    description: String,
     note: String,
     size: {
       name: String,
@@ -29,13 +28,13 @@ const orderSchema = new Schema({
         type: Number,
         get: v => Math.round(v),
         set: v => Math.round(v),
-      },
-      quantity: {
-        type: Number,
-        get: v => Math.round(v),
-        set: v => Math.round(v),
       }
     }],
+    quantity: {
+      type: Number,
+      get: v => Math.round(v),
+      set: v => Math.round(v),
+    },
     totalPrice: {
       type: Number,
       get: v => Math.round(v),
@@ -45,7 +44,7 @@ const orderSchema = new Schema({
   buyer: {
     accountId: {
       type: mongoose.Types.ObjectId,
-      ref: 'Account'  
+      ref: 'Account'
     },
     name: String,
     phone: String
@@ -63,7 +62,7 @@ const orderSchema = new Schema({
   inStoreOptions: {
     tableId: {
       type: mongoose.Types.ObjectId,
-      ref: 'Table'  
+      ref: 'Table'
     },
     tableCode: String,
     note: String
@@ -71,7 +70,7 @@ const orderSchema = new Schema({
   discounts: [{
     discountId: {
       type: mongoose.Types.ObjectId,
-      ref: 'Discount'  
+      ref: 'Discount'
     },
     discountCode: String,
     discountOn: String,

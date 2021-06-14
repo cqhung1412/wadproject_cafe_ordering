@@ -24,9 +24,10 @@ exports.getProductsByCategories = async (req, res, next) => {
           _id: '$category',
           products: {
             $push: {
+              productId: '$_id',
               name: '$name',
               unitPrice: '$unitPrice',
-              desc: '$desc',
+              description: '$desc',
               isMustTry: '$isMustTry',
               sizes: '$sizes',
               toppings: '$toppings'
