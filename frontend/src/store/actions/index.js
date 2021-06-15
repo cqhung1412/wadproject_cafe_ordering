@@ -15,5 +15,6 @@ export {
 } from './product';
 
 export {
-  addProductToCart
+  addProductToCart,
+  removeProductFromCart
 } from './cart';

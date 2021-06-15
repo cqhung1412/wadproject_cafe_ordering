@@ -9,8 +9,6 @@ import offer from '../../../assets/images/we-offer.gif'
 import promo from '../../../assets/images/promo-news.gif'
 import contact from '../../../assets/images/contact.png'
 
-
-
 import mobilehome from '../../../assets/images/mobile-home.gif'
 import mobilestory from '../../../assets/images/mobile-story.gif'
 import mobileoffer from '../../../assets/images/mobile-offer.gif'

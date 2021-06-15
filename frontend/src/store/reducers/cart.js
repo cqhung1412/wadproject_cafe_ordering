@@ -8,13 +8,20 @@ const reducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case actionTypes.ADD_TO_CART_SUCCESS:
-      return { cart: [...state.cart, payload.addedProduct] };
+      let newCart = state.cart;
+      newCart.push(payload.addedProduct);
+      return { cart: newCart };
 
     case actionTypes.ADD_PRODUCT_TO_CART:
       return state;
 
     case actionTypes.ADD_TO_CART_FAILED:
       return state;
+
+    case actionTypes.REMOVE_FROM_CART_SUCCESS:
+      let removingCart = state.cart;
+      removingCart.splice(payload.productIndex, 1);
+      return { cart: removingCart };
 
     default:
       return state;
