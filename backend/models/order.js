@@ -8,6 +8,7 @@ const orderSchema = new Schema({
       ref: 'Product'
     },
     name: String,
+    description: String,
     unitPrice: {
       type: Number,
       get: v => Math.round(v),

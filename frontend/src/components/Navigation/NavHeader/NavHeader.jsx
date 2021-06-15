@@ -17,7 +17,6 @@ const NavHeader = (props) => {
     dispatch({ type: 'LOGOUT' });
   }
 
-  console.log(elements)
   return (
     <Navbar className='header sticky-top align-items-center justify-content-center' expand="lg">
       <Navbar.Toggle className='toggle' aria-controls="basic-navbar-nav" />

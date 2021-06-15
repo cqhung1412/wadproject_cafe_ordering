@@ -58,3 +58,13 @@
   -webkit-box-flex: 1;
   width: 100%;
 }
+.checkout-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 3rem;
+}
+.checkout-button span {
+  color: whitesmoke;
+}

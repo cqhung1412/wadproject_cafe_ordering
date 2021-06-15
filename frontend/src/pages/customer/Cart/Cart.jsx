@@ -2,16 +2,29 @@ import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import { Container, Row, Col, Badge } from 'react-bootstrap'
+import { Button, Typography } from 'antd'
 
 import * as actionCreators from '../../../store/actions/index'
-
+import axios from '../../../axios-instance'
+import { processToPayment } from '../../../utils/payment'
 import './Cart.less'
+
+const { Text } = Typography;
 
 const numberToVND = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫';
 }
 
 class Cart extends Component {
+  getCheckoutPage = () => {
+    axios.post('/checkout', { products: this.props.cart })
+      .then(res => res.data.stripeCheckoutSessionId)
+      .then(sessionId => {
+        processToPayment(sessionId)
+      })
+      .catch(err => this.props.onError(err));
+  }
+
   render() {
     const cartProducts = this.props.cart;
     let totalPrice = 0;
@@ -48,6 +61,11 @@ class Cart extends Component {
                     </div>
                   </li>
                 </ul>
+                <Button className='checkout-button' type='primary' onClick={this.getCheckoutPage}>
+                  <Text>{totalQuantity} drinks</Text>
+                  <Text>Process to Checkout</Text>
+                  <Text>{numberToVND(totalPrice)}</Text>
+                </Button>
               </div>
             </Col>
           </Row>

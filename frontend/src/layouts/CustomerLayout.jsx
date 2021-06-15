@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from "react-router-dom"
-
 import './CustomerLayout.less'
 import NavHeader from '../components/Navigation/NavHeader/NavHeader'
 import Homepage from '../pages/customer/Homepage/Homepage'
 import Menu from '../pages/customer/Menu/Menu'
 import Cart from '../pages/customer/Cart/Cart'
+import Profile from '../pages/customer/Profile/Profile'
 
 export default class CustomerLayout extends Component {
   render() {
@@ -24,6 +24,7 @@ export default class CustomerLayout extends Component {
           <Route path='/' exact render={() => <Homepage />} />
           <Route path='/menu' exact render={() => <Menu />} />
           <Route path='/cart' exact render={() => <Cart />} />
+          <Route path='/profile' exact render={() => <Profile />} />
           <Redirect to='/' />
         </Switch>
       </div>
