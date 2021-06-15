@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHvxk.ttf) format('truetype');
+}
+.prod-container {
+  padding: 20px 20px;
+}
+.prod-ul {
+  padding: 0;
+  border-radius: 0;
+  list-style-type: none;
+  background-color: whitesmoke;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19);
+}
+.prod-li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  margin: 0;
+}
+.prod-li:last-child {
+  border-bottom: none;
+}
+.prod-media {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+}
+.prod-media div {
+  margin-left: 10px;
+}
+.prod-badge {
+  background-color: orange;
+  padding: 2px 8px;
+}
+.prod-center {
+  flex: 1;
+  flex-basis: 1;
+  -webkit-box-flex: 1;
+  width: 100%;
+}
+.prod-center p {
+  margin: 0;
+}
+.prod-price {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: large;
+}
+.prod-price div {
+  margin-left: 10px;
+}
+.prod-price-type {
+  flex: 1;
+  flex-basis: 1;
+  -webkit-box-flex: 1;
+  width: 100%;
+}

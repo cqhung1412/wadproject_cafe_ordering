@@ -6,7 +6,6 @@ import { Container, Row, Col, Badge } from 'react-bootstrap'
 import * as actionCreators from '../../../store/actions/index'
 
 import './Cart.less'
-import placeholder from '../../../assets/images/placeholder.svg'
 
 const numberToVND = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫';
@@ -15,6 +14,10 @@ const numberToVND = (x) => {
 class Cart extends Component {
   render() {
     const cartProducts = this.props.cart;
+    let totalPrice = 0;
+    let totalQuantity = 0;
+    cartProducts.forEach(p => totalPrice += p.totalPrice);
+    cartProducts.forEach(p => totalQuantity += p.quantity);
 
     return (
       <Fragment>
@@ -36,6 +39,14 @@ class Cart extends Component {
                       </div>
                     </li>
                   ))}
+                  <li className='prod-li prod-price'>
+                    <div className='prod-price-type'>
+                      <div>Total ({totalQuantity} drinks)</div>
+                    </div>
+                    <div className='prod-price-number'>
+                      <h4>{numberToVND(totalPrice)}</h4>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </Col>
