@@ -85,11 +85,6 @@ const orderSchema = new Schema({
     type: Number,
     get: v => Math.round(v),
     set: v => Math.round(v),
-  },
-  discountedCost: {
-    type: Number,
-    get: v => Math.round(v),
-    set: v => Math.round(v),
   }
 }, {
   timestamps: true

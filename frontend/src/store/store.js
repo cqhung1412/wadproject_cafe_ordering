@@ -6,6 +6,7 @@ import authReducer from './reducers/auth';
 import errorReducer from './reducers/error';
 import productReducer from './reducers/product';
 import cartReducer from './reducers/cart';
+import orderReducer from './reducers/order';
 
 const loggerMiddleware = createLogger();
 
@@ -16,10 +17,11 @@ const composeEnhancers =
     : compose;
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  error: errorReducer,
-  prod: productReducer,
-  cart: cartReducer
+  auth:   authReducer,
+  error:  errorReducer,
+  prod:   productReducer,
+  cart:   cartReducer,
+  order:  orderReducer
 });
 
 const store = createStore(

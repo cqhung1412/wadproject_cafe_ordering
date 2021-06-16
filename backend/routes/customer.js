@@ -24,6 +24,9 @@ Router.get('/category-products', productController.getProductsByCategories);
 //________________________________________________________________
 Router.post('/checkout', orderController.getCheckout);
 
+Router.post('/order', isAuth, orderController.createOrder);
+
+Router.get('/orders', isAuth, orderController.getOrders);
 //________________________________________________________________
 
 

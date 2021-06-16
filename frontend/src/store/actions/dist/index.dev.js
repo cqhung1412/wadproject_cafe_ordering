@@ -60,7 +60,13 @@ Object.defineProperty(exports, "removeProductFromCart", {
 Object.defineProperty(exports, "createOrder", {
   enumerable: true,
   get: function get() {
-    return _checkout.createOrder;
+    return _order.createOrder;
+  }
+});
+Object.defineProperty(exports, "getOrders", {
+  enumerable: true,
+  get: function get() {
+    return _order.getOrders;
   }
 });
 
@@ -72,4 +78,4 @@ var _product = require("./product");
 
 var _cart = require("./cart");
 
-var _checkout = require("./checkout");
+var _order = require("./order");

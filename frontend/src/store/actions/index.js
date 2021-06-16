@@ -20,5 +20,6 @@ export {
 } from './cart';
 
 export {
-  createOrder
-} from './checkout';
+  createOrder,
+  getOrders
+} from './order';

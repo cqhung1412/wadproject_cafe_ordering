@@ -21,6 +21,8 @@ Router.get('/category-products', productController.getProductsByCategories); //_
 // Orders
 //________________________________________________________________
 
-Router.post('/checkout', orderController.getCheckout); //________________________________________________________________
+Router.post('/checkout', orderController.getCheckout);
+Router.post('/order', isAuth, orderController.createOrder);
+Router.get('/orders', isAuth, orderController.getOrders); //________________________________________________________________
 
 module.exports = Router;

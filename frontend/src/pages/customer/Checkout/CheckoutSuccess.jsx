@@ -11,14 +11,17 @@ class CheckoutSuccess extends Component {
   }
 
   componentDidMount() {
-
+    this.props.onMount();
+    this.setState({ redirect: true });
   }
 
   render() {
     const { redirect } = this.state;
-    const element = redirect ? <Redirect to='/orders' /> : <Spin />; 
+    const element = redirect ? <Redirect to='/orders' /> : <Spin />;
     return (
-      {element}
+      <>
+        {element}
+      </>
     )
   }
 }
