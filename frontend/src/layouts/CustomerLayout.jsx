@@ -6,7 +6,8 @@ import Homepage from '../pages/customer/Homepage/Homepage'
 import Menu from '../pages/customer/Menu/Menu'
 import Cart from '../pages/customer/Cart/Cart'
 import Profile from '../pages/customer/Profile/Profile'
-
+import Order from '../pages/customer/Order/Order'
+import CheckoutSuccess from '../pages/customer/Checkout/CheckoutSuccess'
 export default class CustomerLayout extends Component {
   render() {
     return (
@@ -25,6 +26,8 @@ export default class CustomerLayout extends Component {
           <Route path='/menu' exact render={() => <Menu />} />
           <Route path='/cart' exact render={() => <Cart />} />
           <Route path='/profile' exact render={() => <Profile />} />
+          <Route path='/orders' exact render={() => <Order />} />
+          <Route path='/checkout/success' exact render={() => <CheckoutSuccess />} />
           <Redirect to='/' />
         </Switch>
       </div>

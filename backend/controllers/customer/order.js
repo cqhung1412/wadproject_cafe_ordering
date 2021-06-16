@@ -1,4 +1,17 @@
+const { errorHandler } = require('../../util/error-handler');
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+exports.createOrder = async (req, res, next) => {
+  const { products } = req.body;
+  const userId = req.userId;
+
+  try {
+    
+  } catch (error) {
+    errorHandler(req, error, next);
+  }
+}
 
 exports.getCheckout = async (req, res, next) => {
   const { products } = req.body;

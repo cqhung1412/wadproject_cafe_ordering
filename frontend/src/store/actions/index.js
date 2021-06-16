@@ -18,3 +18,7 @@ export {
   addProductToCart,
   removeProductFromCart
 } from './cart';
+
+export {
+  createOrder
+} from './checkout';
