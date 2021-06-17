@@ -22,7 +22,6 @@ export const createOrder = () => {
     })
       .then(res => {
         if (res.status === 201 || 200) {
-          console.log(res);
           user.cart = [];
           localStorage.setItem('user', JSON.stringify(user));
           dispatch({ type: actionTypes.CHECKOUT_SUCCESS, payload: { newOrder: res.data.order } });
@@ -35,7 +34,7 @@ export const createOrder = () => {
 export const getOrders = () => {
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_ORDERS });
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
     const { token } = user;
     axios.get('/orders', {
       headers: {

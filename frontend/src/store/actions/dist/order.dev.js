@@ -41,7 +41,6 @@ var createOrder = function createOrder() {
       }
     }).then(function (res) {
       if (res.status === 201 || 200) {
-        console.log(res);
         user.cart = [];
         localStorage.setItem('user', JSON.stringify(user));
         dispatch({
@@ -64,7 +63,7 @@ var getOrders = function getOrders() {
     dispatch({
       type: actionTypes.FETCH_ORDERS
     });
-    var user = localStorage.getItem('user');
+    var user = JSON.parse(localStorage.getItem('user'));
     var token = user.token;
 
     _axiosInstance["default"].get('/orders', {
