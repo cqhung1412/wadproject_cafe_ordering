@@ -23,6 +23,9 @@ const reducer = (state = initialState, action) => {
       removingCart.splice(payload.productIndex, 1);
       return { cart: removingCart };
 
+    case actionTypes.CHECKOUT_SUCCESS:
+      return { cart: [] }
+
     default:
       return state;
   }

@@ -5,12 +5,17 @@ export const addProductToCart = product => {
     dispatch({ type: actionTypes.ADD_PRODUCT_TO_CART });
     let storedUser = JSON.parse(localStorage.getItem('user'));
     let userCart = storedUser.cart;
-    userCart.push(product);
+    let description = product.size;
+    let toppingDesc = product.toppings ? (product.toppings.length !== 0 ? (' +' + product.toppings.join(' +')) : '') : '';
+    let noteDesc = product.note ? ` (${product.note})` : '';
+    description = description + toppingDesc + noteDesc;
+    const prodWithDesc = { ...product, description }
+    userCart.push(prodWithDesc);
     storedUser.cart = userCart;
     localStorage.setItem('user', JSON.stringify(storedUser));
     dispatch({
       type: actionTypes.ADD_TO_CART_SUCCESS,
-      payload: { addedProduct: product }
+      payload: { addedProduct: prodWithDesc }
     });
   }
 }

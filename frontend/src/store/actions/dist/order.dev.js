@@ -32,21 +32,25 @@ var createOrder = function createOrder() {
     var user = JSON.parse(localStorage.getItem('user'));
     var token = user.token,
         cart = user.cart;
-    var productIds = cart.map(function (p) {
-      return p.productId;
-    });
 
     _axiosInstance["default"].post('/order', {
-      productIds: productIds
+      products: cart
     }, {
       headers: {
         'Authorization': "Bearer ".concat(token)
       }
     }).then(function (res) {
-      if (res.status === 201 || 200) dispatch({
-        type: actionTypes.CHECKOUT_SUCCESS,
-        payload: cart
-      });
+      if (res.status === 201 || 200) {
+        console.log(res);
+        user.cart = [];
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch({
+          type: actionTypes.CHECKOUT_SUCCESS,
+          payload: {
+            newOrder: res.data.order
+          }
+        });
+      }
     })["catch"](function (error) {
       return dispatch(onDispatchFailed(error));
     });

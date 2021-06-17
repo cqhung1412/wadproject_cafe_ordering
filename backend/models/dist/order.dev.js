@@ -11,40 +11,9 @@ var orderSchema = new Schema({
     },
     name: String,
     description: String,
-    unitPrice: {
-      type: Number,
-      get: function get(v) {
-        return Math.round(v);
-      },
-      set: function set(v) {
-        return Math.round(v);
-      }
-    },
     note: String,
-    size: {
-      name: String,
-      unitPrice: {
-        type: Number,
-        get: function get(v) {
-          return Math.round(v);
-        },
-        set: function set(v) {
-          return Math.round(v);
-        }
-      }
-    },
-    toppings: [{
-      name: String,
-      unitPrice: {
-        type: Number,
-        get: function get(v) {
-          return Math.round(v);
-        },
-        set: function set(v) {
-          return Math.round(v);
-        }
-      }
-    }],
+    size: String,
+    toppings: [String],
     quantity: {
       type: Number,
       get: function get(v) {

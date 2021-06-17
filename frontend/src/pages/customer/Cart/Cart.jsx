@@ -17,9 +17,10 @@ const numberToVND = (x) => {
 
 class Cart extends Component {
   getCheckoutPage = () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
     axios.post('/checkout', { products: this.props.cart }, {
       headers: {
-        'Authorization': JSON.parse(localStorage.getItem('user')).token
+        'Authorization': `Bearer ${token}`
       }
     })
       .then(res => res.data.stripeCheckoutSessionId)

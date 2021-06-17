@@ -17,6 +17,12 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_ORDERS_FAILED:
       return state;
 
+    case actionTypes.CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        orders: [...state.orders, payload.newOrder]
+      }
+
     default:
       return state;
   }

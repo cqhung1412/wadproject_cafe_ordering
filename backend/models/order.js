@@ -9,28 +9,9 @@ const orderSchema = new Schema({
     },
     name: String,
     description: String,
-    unitPrice: {
-      type: Number,
-      get: v => Math.round(v),
-      set: v => Math.round(v),
-    },
     note: String,
-    size: {
-      name: String,
-      unitPrice: {
-        type: Number,
-        get: v => Math.round(v),
-        set: v => Math.round(v),
-      }
-    },
-    toppings: [{
-      name: String,
-      unitPrice: {
-        type: Number,
-        get: v => Math.round(v),
-        set: v => Math.round(v),
-      }
-    }],
+    size: String,
+    toppings: [String],
     quantity: {
       type: Number,
       get: v => Math.round(v),

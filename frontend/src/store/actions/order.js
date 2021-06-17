@@ -14,16 +14,19 @@ export const createOrder = () => {
     dispatch({ type: actionTypes.CHECKOUT });
     const user = JSON.parse(localStorage.getItem('user'));
     const { token, cart } = user;
-    const productIds = cart.map(p => p.productId);
 
-    axios.post('/order', { productIds: productIds }, {
+    axios.post('/order', { products: cart }, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
       .then(res => {
-        if (res.status === 201 || 200)
-          dispatch({ type: actionTypes.CHECKOUT_SUCCESS, payload: cart });
+        if (res.status === 201 || 200) {
+          console.log(res);
+          user.cart = [];
+          localStorage.setItem('user', JSON.stringify(user));
+          dispatch({ type: actionTypes.CHECKOUT_SUCCESS, payload: { newOrder: res.data.order } });
+        }
       })
       .catch(error => dispatch(onDispatchFailed(error)));
   };

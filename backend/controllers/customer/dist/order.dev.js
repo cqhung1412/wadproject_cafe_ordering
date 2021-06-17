@@ -8,6 +8,8 @@ var _require = require('../../util/error-handler'),
     errorHandler = _require.errorHandler,
     createError = _require.createError;
 
+var constants = require('../../util/constants');
+
 var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.getOrders = function _callee(req, res, next) {
@@ -69,7 +71,7 @@ exports.getOrders = function _callee(req, res, next) {
 };
 
 exports.createOrder = function _callee2(req, res, next) {
-  var products, userId, user, productIds;
+  var products, userId, user, totalCost, order;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -91,23 +93,46 @@ exports.createOrder = function _callee2(req, res, next) {
           throw createError('User not found!', 404);
 
         case 8:
-          productIds = products.map(function (p) {
-            return p.productId;
+          totalCost = 0;
+          products.forEach(function (p) {
+            return totalCost = parseInt(totalCost + p.totalPrice);
           });
-          _context2.next = 14;
+          order = new Order({
+            products: products,
+            buyer: {
+              accountId: user._id,
+              name: user.name,
+              phone: user.phone || ''
+            },
+            orderStatus: constants.ORDER_STATUSES.PENDING,
+            orderType: constants.ORDER_TYPES.IN_STORE,
+            shippingOptions: null,
+            inStoreOptions: null,
+            discounts: [],
+            totalCost: totalCost
+          });
+          _context2.next = 13;
+          return regeneratorRuntime.awrap(order.save());
+
+        case 13:
+          res.status(201).json({
+            message: 'Order is await pending by admin :D',
+            order: order
+          });
+          _context2.next = 19;
           break;
 
-        case 11:
-          _context2.prev = 11;
+        case 16:
+          _context2.prev = 16;
           _context2.t0 = _context2["catch"](2);
           errorHandler(req, _context2.t0, next);
 
-        case 14:
+        case 19:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[2, 11]]);
+  }, null, null, [[2, 16]]);
 };
 
 exports.getCheckout = function _callee3(req, res, next) {
@@ -118,14 +143,14 @@ exports.getCheckout = function _callee3(req, res, next) {
         case 0:
           products = req.body.products;
           line_items = products.map(function (product) {
-            var description = product.size.name;
-            var toppingDesc = product.toppings && (product.toppings.length !== 0 ? ' +' + product.toppings.join(' +') : '');
-            var noteDesc = product.note || '';
-            description += ' ' + toppingDesc + ' ' + noteDesc;
+            var description = product.size;
+            var toppingDesc = product.toppings ? product.toppings.length !== 0 ? ' +' + product.toppings.join(' +') : '' : '';
+            var noteDesc = product.note ? "(".concat(product.note, ")") : '';
+            description = description + ' ' + toppingDesc + ' ' + noteDesc;
             return {
               name: product.name,
               description: description,
-              amount: product.totalPrice,
+              amount: parseInt(product.totalPrice / product.quantity),
               currency: 'vnd',
               quantity: product.quantity
             };
