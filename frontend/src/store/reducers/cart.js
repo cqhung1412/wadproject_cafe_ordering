@@ -8,9 +8,7 @@ const reducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case actionTypes.ADD_TO_CART_SUCCESS:
-      let newCart = state.cart;
-      newCart.push(payload.addedProduct);
-      return { cart: newCart };
+      return { cart: [...state.cart, payload.addedProduct] };
 
     case actionTypes.ADD_PRODUCT_TO_CART:
       return state;

@@ -15,9 +15,9 @@ export default class CustomerLayout extends Component {
         <NavHeader
           elements={[
             { key: 'home', to: '/', text: 'Home' },
-            { key: 'story', to: '#story', text: 'Hut Story' },
-            { key: 'offer', to: '#offer', text: 'Our Products' },
-            { key: 'promo', to: '#promo', text: 'Promotions' },
+            // { key: 'story', to: '#story', text: 'Hut Story' },
+            // { key: 'offer', to: '#offer', text: 'Our Products' },
+            // { key: 'promo', to: '#promo', text: 'Promotions' },
             { key: 'menu', to: '/menu', text: 'Menu' }
           ]}
         />

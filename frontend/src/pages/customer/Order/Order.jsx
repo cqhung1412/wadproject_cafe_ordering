@@ -11,7 +11,6 @@ import * as actionCreators from '../../../store/actions/index'
 const numberToVND = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫';
 }
-// const { Text } = Typography;
 const { Panel } = Collapse;
 
 class Order extends Component {
@@ -65,9 +64,7 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   const { orders } = state.order;
-  return {
-    orders
-  };
+  return { orders };
 };
 
 const mapDispatchToProps = dispatch => {

@@ -6,7 +6,7 @@ import logo from '../../../assets/images/coffee_logo.png'
 import './NavHeader.less'
 
 const NavHeader = (props) => {
-  const { elements } = props
+  const { elements } = props;
 
   const isAuth = useSelector(state => state.auth.isAuth);
   const cartItems = useSelector(state => state.cart.cart ? state.cart.cart : []);
@@ -35,12 +35,12 @@ const NavHeader = (props) => {
           ))}
           {!isAuth && <NavLink className='navlink mr-4' key='login' to='/login'>Login</NavLink>}
           {isAuth && <>
-            <NavLink className='navlink mr-4' to='/profile'>Your Profile</NavLink>
+            {/* <NavLink className='navlink mr-4' to='/profile'>Your Profile</NavLink> */}
             <NavLink className='navlink mr-4' to='/orders'>Your Orders</NavLink>
             <NavLink className='navlink mr-4' to='/cart'>Your Cart{cartItems.length !== 0 && <Badge className='ml-1' variant='danger'>{cartItems.length}</Badge>}</NavLink>
             <Button className='navlink mr-4 p-0 pb-1' variant='link' onClick={onLogout}>Logout</Button>
           </>}
-          {isAdmin && <NavLink className='navlink mr-4' to='/admin/'>Admin Dashboard</NavLink>}
+          {isAdmin && <NavLink className='navlink mr-4' to='/admin'>Admin Dashboard</NavLink>}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
