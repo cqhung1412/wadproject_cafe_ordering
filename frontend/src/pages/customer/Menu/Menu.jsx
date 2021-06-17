@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
-import { Spin, Input, Radio, InputNumber, Form } from 'antd'
+import { Spin, Input, Radio, InputNumber, Form, Checkbox } from 'antd'
 import { Container, Row, Col, Media } from 'react-bootstrap'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import './Menu.less'
@@ -21,6 +21,7 @@ class Menu extends Component {
     isLoading: false,
     isOpenForm: false,
     selectedProduct: null,
+    selectedToppingList: [],
     selectedTotalPrice: 0,
     lastSelectedSizePrice: 0,
     lastSelectedQuantity: 1
@@ -41,6 +42,7 @@ class Menu extends Component {
   toggleForm = (product) => this.setState({
     selectedProduct: this.state.isOpenForm ? null : product,
     selectedTotalPrice: this.state.isOpenForm ? 0 : product.unitPrice,
+    selectedToppingList: [],
     lastSelectedSizePrice: 0,
     lastSelectedQuantity: 1,
     isOpenForm: !this.state.isOpenForm,
@@ -49,6 +51,7 @@ class Menu extends Component {
   onCancelForm = () => this.setState({
     selectedProduct: null,
     selectedTotalPrice: 0,
+    selectedToppingList: [],
     lastSelectedSizePrice: 0,
     lastSelectedQuantity: 1,
     isOpenForm: false
@@ -57,6 +60,7 @@ class Menu extends Component {
   openForm = (product) => this.setState({
     selectedProduct: product,
     selectedTotalPrice: product.unitPrice,
+    selectedToppingList: [],
     lastSelectedSizePrice: 0,
     lastSelectedQuantity: 1
   }, () => this.setState({ isOpenForm: true }))
@@ -91,18 +95,9 @@ class Menu extends Component {
     const productDetails = {
       productId: selectedProduct.productId,
       name: selectedProduct.name,
-      unitPrice: selectedProduct.unitPrice,
       note: values.note,
-      size: {
-        name: values.size,
-        unitPrice: selectedProduct.sizes.find(s => s.size === values.size).additionalPrice
-      },
-      // toppings: values.toppings ? values.toppings.map(topping => {
-      //   return {
-      //     name: topping.name,
-      //     unitPrice: topping.additionalPrice
-      //   };
-      // }) : [],
+      size: values.size,
+      toppings: values.toppings,
       quantity: values.quantity,
       totalPrice: selectedTotalPrice
     };
@@ -116,9 +111,15 @@ class Menu extends Component {
     });
   }
 
+  onToppingGroupChange = (checkedList) => {
+    this.setState({
+      selectedToppingList: checkedList
+    })
+  }
+
   render() {
     const productsGroupByCategories = this.props.products;
-    const { activeCategory, isLoading, isOpenForm, selectedProduct, selectedTotalPrice, lastSelectedQuantity } = this.state;
+    const { activeCategory, isLoading, isOpenForm, selectedProduct, selectedTotalPrice, selectedToppingList, lastSelectedQuantity } = this.state;
 
     const form = (
       <AntForm
@@ -154,8 +155,7 @@ class Menu extends Component {
             }
           </Radio.Group>
         </Form.Item>
-        {/* TODO: add state checkedList and onCheckboxGroupChange */}
-        {/* {selectedProduct && selectedProduct.toppings.length > 0 &&
+        {selectedProduct && selectedProduct.toppings.length > 0 &&
           <Form.Item
             name='toppings'
             label='Toppings'
@@ -164,7 +164,10 @@ class Menu extends Component {
               type: 'array'
             }]}
           >
-            <Checkbox.Group>
+            <Checkbox.Group
+              value={selectedToppingList}
+              onChange={this.onToppingGroupChange}
+            >
               {
                 selectedProduct && selectedProduct.toppings.map((t, index) => (
                   <Checkbox
@@ -176,7 +179,7 @@ class Menu extends Component {
                 ))
               }
             </Checkbox.Group>
-          </Form.Item>} */}
+          </Form.Item>}
         <Form.Item
           name='note'
           label='Note'
@@ -222,7 +225,7 @@ class Menu extends Component {
                 <ul className='cate-prod-ul'>
                   {productsGroupByCategories.map(c => (
                     <li className='cate-prod-li' id={c.category}>
-                      <div style={{height: '3vh'}} />
+                      <div style={{ height: '3vh' }} />
                       <h4 style={{ color: 'orange' }}>{c.category}</h4>
                       <ul className='prod-ul'>
                         {c.products.map(p => (

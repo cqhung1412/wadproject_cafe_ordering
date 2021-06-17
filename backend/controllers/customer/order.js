@@ -26,7 +26,7 @@ exports.getOrders = async (req, res, next) => {
 }
 
 exports.createOrder = async (req, res, next) => {
-  const { productIds } = req.body;
+  const { products } = req.body;
   const userId = req.userId;
 
   try {
@@ -34,7 +34,8 @@ exports.createOrder = async (req, res, next) => {
     if (!user)
       throw createError('User not found!', 404);
 
-    console.log(productIds)
+    const productIds = products.map(p => p.productId);
+    
   } catch (error) {
     errorHandler(req, error, next);
   }
@@ -43,9 +44,13 @@ exports.createOrder = async (req, res, next) => {
 exports.getCheckout = async (req, res, next) => {
   const { products } = req.body;
   const line_items = products.map(product => {
+    let description = product.size.name;
+    let toppingDesc = product.toppings && (product.toppings.length !== 0 ? (' +' + product.toppings.join(' +')) : '');
+    let noteDesc = product.note || '';
+    description += ' ' + toppingDesc + ' ' + noteDesc;
     return {
       name: product.name,
-      description: product.note || 'No description!',
+      description: description,
       amount: product.totalPrice,
       currency: 'vnd',
       quantity: product.quantity

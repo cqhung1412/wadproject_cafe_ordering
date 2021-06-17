@@ -69,12 +69,12 @@ exports.getOrders = function _callee(req, res, next) {
 };
 
 exports.createOrder = function _callee2(req, res, next) {
-  var productIds, userId, user;
+  var products, userId, user, productIds;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          productIds = req.body.productIds;
+          products = req.body.products;
           userId = req.userId;
           _context2.prev = 2;
           _context2.next = 5;
@@ -91,7 +91,9 @@ exports.createOrder = function _callee2(req, res, next) {
           throw createError('User not found!', 404);
 
         case 8:
-          console.log(productIds);
+          productIds = products.map(function (p) {
+            return p.productId;
+          });
           _context2.next = 14;
           break;
 
@@ -116,9 +118,13 @@ exports.getCheckout = function _callee3(req, res, next) {
         case 0:
           products = req.body.products;
           line_items = products.map(function (product) {
+            var description = product.size.name;
+            var toppingDesc = product.toppings && (product.toppings.length !== 0 ? ' +' + product.toppings.join(' +') : '');
+            var noteDesc = product.note || '';
+            description += ' ' + toppingDesc + ' ' + noteDesc;
             return {
               name: product.name,
-              description: product.note || 'No description!',
+              description: description,
               amount: product.totalPrice,
               currency: 'vnd',
               quantity: product.quantity

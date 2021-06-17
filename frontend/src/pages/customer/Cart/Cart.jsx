@@ -17,7 +17,11 @@ const numberToVND = (x) => {
 
 class Cart extends Component {
   getCheckoutPage = () => {
-    axios.post('/checkout', { products: this.props.cart })
+    axios.post('/checkout', { products: this.props.cart }, {
+      headers: {
+        'Authorization': JSON.parse(localStorage.getItem('user')).token
+      }
+    })
       .then(res => res.data.stripeCheckoutSessionId)
       .then(sessionId => {
         processToPayment(sessionId)
@@ -45,7 +49,7 @@ class Cart extends Component {
                         <div className='prod-quantity w-auto'><Badge pill className='prod-badge'>{p.quantity}</Badge></div>
                         <div className='prod-center w-auto'>
                           <h6>{p.name}</h6>
-                          <p>{p.size.name}</p>
+                          <p>{p.toppings ? (p.size + ' +' + p.toppings.join(' +')) : p.size}</p>
                           <p>{p.note}</p>
                         </div>
                         <div className='prod-price w-auto'>{numberToVND(p.totalPrice)}</div>
