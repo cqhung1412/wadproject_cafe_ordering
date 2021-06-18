@@ -45,9 +45,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/admin', adminRoutes);
 app.use(customerRoutes);
 app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes);
 
 app.use((req, res) => {
   const { error } = req;

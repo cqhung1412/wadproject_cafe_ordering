@@ -9,6 +9,7 @@ import './App.less';
 import LoginLayout from './layouts/LoginLayout';
 import SignupLayout from './layouts/SignupLayout';
 import CustomerLayout from './layouts/CustomerLayout';
+import AdminLayout from './layouts/AdminLayout';
 import { ErrorHandler } from './components/ErrorHandler/ErrorHandler';
 
 import * as actionCreators from './store/actions/index'
@@ -89,6 +90,13 @@ class App extends Component {
       routes = (
         user.isAdmin ?
           <Switch>
+            <Route path='/admin'
+              render={() => (
+                <AdminLayout
+                  onLogout={this.logoutHandler}
+                />
+              )}
+            />
             <Route path='/'
               render={() => (
                 <CustomerLayout

@@ -10,6 +10,9 @@ const productController = require('../controllers/admin/product');
 const tableController = require('../controllers/admin/table');
 
 const {
+  getOrdersGroupByStatus
+} = orderController;
+const {
   getAccounts,
   createAdminAccount
 } = accController;
@@ -38,10 +41,16 @@ const Account = require('../models/account');
 
 const Router = express.Router();
 
+// Orders
+//________________________________________________________________
+// GET /admin/orders
+Router.get('/orders', isAuth, getOrdersGroupByStatus);
+//________________________________________________________________
+
 // Products
 //________________________________________________________________
 // GET /admin/products
-Router.get('/products', /*isAuth,*/ getProductsByCategories);
+Router.get('/products', isAuth, getProductsByCategories);
 
 // GET /admin/product/:productId
 Router.get('/product/:productId', isAuth, getProduct);
@@ -175,7 +184,6 @@ Router.post('/account',
     body('lastName').trim()
       .not().isEmpty(),
   ],
-  isAuth,
   createAdminAccount
 );
 //________________________________________________________________
