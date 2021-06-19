@@ -32,7 +32,7 @@ const LazyImageWrapper = props => (
 export default class Homepage extends Component {
   render() {
     return (
-      <div>
+      <div style={{ backgroundColor: 'black' }}>
         <Image src={home} className='w-100 banner' id='home' alt='home' />
         <LazyImageWrapper src={story} id='story' alt='Our Story' />
         <LazyImageWrapper src={offer} id='offer' alt='What we offer' />

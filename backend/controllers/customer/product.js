@@ -30,7 +30,8 @@ exports.getProductsByCategories = async (req, res, next) => {
               description: '$desc',
               isMustTry: '$isMustTry',
               sizes: '$sizes',
-              toppings: '$toppings'
+              toppings: '$toppings',
+              category: '$category'
             }
           }
         }

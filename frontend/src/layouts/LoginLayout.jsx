@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-
+import { NavLink } from 'react-router-dom'
 import { Form, Input, Button, Image, Typography } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
@@ -64,7 +64,7 @@ export default class LoginLayout extends Component {
                     Forgot your password D:
                   </Button>
                   <Button type='default' >
-                    Create your account :D
+                    <NavLink to={'/signup'}>Create your account :D</NavLink>
                   </Button>
                 </div>
               </Form.Item>

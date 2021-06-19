@@ -5,7 +5,23 @@ import { Spin, Input, Radio, InputNumber, Form, Checkbox } from 'antd'
 import { Container, Row, Col, Media } from 'react-bootstrap'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import './Menu.less'
-import placeholder from '../../../assets/images/placeholder.svg'
+
+import cafeSuaDa from '../../../assets/images/cafe-sua-da.jpg'
+import americanoDa from '../../../assets/images/Americano-da.jpg'
+import bacXiu from '../../../assets/images/Bac-siu.jpg'
+import bmiChaBong from '../../../assets/images/Bmi-cha-bong-pho-mai.jpg'
+import cafeDaXay from '../../../assets/images/cafe-da-xay.jpg'
+import cafeDenDa from '../../../assets/images/Cafe-den-da.jpg'
+import cookieDaXay from '../../../assets/images/Cookie-da-xay.jpg'
+import gaXe from '../../../assets/images/Ga-xe-la-chanh.jpg'
+import hongTraSua from '../../../assets/images/hong-tra-sua-new.jpg'
+import mochiVietQuat from '../../../assets/images/MOCHI_viet quat.jpg'
+import mochiXoai from '../../../assets/images/Mochi-xoai.jpg'
+import oolongNong from '../../../assets/images/oolong-nong-new.jpg'
+import sinhtoVietQuat from '../../../assets/images/Sinh-to-viet-quoc.jpg'
+import traDaoCamSa from '../../../assets/images/Tra-dao-cam-sapng.jpg'
+import traHatSen from '../../../assets/images/Tra-hat-sen.jpg'
+import tsMacca from '../../../assets/images/TS-Macca-tran-chau-trang.jpg'
 
 import * as actionCreators from '../../../store/actions/index'
 
@@ -14,6 +30,26 @@ import AntForm from '../../../components/AntForm/AntForm'
 const numberToVND = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫';
 }
+
+const imgList = [
+  cafeSuaDa,
+  bacXiu,
+  cafeDenDa,
+  americanoDa,
+  cafeDenDa,
+  oolongNong,
+  hongTraSua,
+  tsMacca,
+  mochiVietQuat,
+  mochiXoai,
+  gaXe,
+  bmiChaBong,
+  cafeDaXay,
+  cookieDaXay,
+  sinhtoVietQuat,
+  traDaoCamSa,
+  traHatSen
+];  
 
 class Menu extends Component {
   state = {
@@ -120,7 +156,8 @@ class Menu extends Component {
   render() {
     const productsGroupByCategories = this.props.products;
     const { activeCategory, isLoading, isOpenForm, selectedProduct, selectedTotalPrice, selectedToppingList, lastSelectedQuantity } = this.state;
-
+    const products2D = productsGroupByCategories.map(c => c.products);
+    const products = [].concat.apply([], products2D);
     const form = (
       <AntForm
         visible={isOpenForm}
@@ -228,14 +265,14 @@ class Menu extends Component {
                       <div style={{ height: '3vh' }} />
                       <h4 style={{ color: 'orange' }}>{c.category}</h4>
                       <ul className='prod-ul'>
-                        {c.products.map(p => (
+                        {products.map((p, index) => p.category === c.category && (
                           <li className='prod-li' key={p.name}>
                             <Media className='prod-media'>
                               <img
                                 width={64}
                                 height={64}
                                 className="mr-3"
-                                src={placeholder}
+                                src={imgList[index]}
                                 alt="Generic placeholder"
                               />
                               <Media.Body>

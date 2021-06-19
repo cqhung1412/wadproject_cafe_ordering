@@ -21,5 +21,6 @@ export {
 
 export {
   createOrder,
-  getOrders
+  getOrders,
+  updateOrder
 } from './order';

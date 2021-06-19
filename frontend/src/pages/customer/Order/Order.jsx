@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import moment from 'moment'
+import openSocket from 'socket.io-client'
+
 import { Container, Row, Col, Badge } from 'react-bootstrap'
 import { Collapse, Tag } from 'antd'
 import './Order.less'
-
+import serverUrl from '../../../utils/serverUrl'
 import * as actionCreators from '../../../store/actions/index'
 
 const numberToVND = (x) => {
@@ -16,6 +18,13 @@ const { Panel } = Collapse;
 class Order extends Component {
   componentDidMount() {
     this.props.onMount();
+    const socket = openSocket(serverUrl);
+    socket.on('completed-order', data => {
+      if (data.action === 'update' && data.userId === this.props.user.userId) {
+        this.props.onUpdateOrders(data.orders);
+        new Notification('Your order is completed! Please come to the counter to get your drinks <3');
+      }
+    })
   }
 
   render() {
@@ -64,12 +73,14 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   const { orders } = state.order;
-  return { orders };
+  const { user } = state.auth;
+  return { orders, user };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onMount: () => dispatch(actionCreators.getOrders()),
+    onUpdateOrders: (orders) => dispatch(actionCreators.updateOrder(orders)),
     onError: (error) => dispatch(actionCreators.setError(error))
   };
 };

@@ -9,6 +9,15 @@ const onDispatchFailed = error => {
   };
 }
 
+export const updateOrder = (orders) => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.FETCH_ORDERS_SUCCESS,
+      payload: { orders: orders }
+    });
+  };
+}
+
 export const createOrder = () => {
   return dispatch => {
     dispatch({ type: actionTypes.CHECKOUT });

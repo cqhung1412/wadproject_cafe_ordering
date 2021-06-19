@@ -2,20 +2,22 @@ const Account = require('../../models/account');
 const Order = require('../../models/order');
 const { errorHandler, createError } = require('../../util/error-handler');
 const constants = require('../../util/constants');
+const io = require('../../util/socket');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.getOrders = async (req, res, next) => {
   const userId = req.userId;
-
   try {
     const user = await Account.findById(userId);
-    if (!user)
+    if (!user) {
       throw createError('User not found!', 404);
+    }
 
     const orders = await Order.find({ 'buyer.accountId': user._id });
-    if (!orders)
+    if (!orders) {
       throw createError('Orders not found!', 404);
+    }
 
     res.status(200).json({
       message: orders.length === 0 ? 'There is no order D:' : 'Fetched orders :D',
@@ -29,11 +31,14 @@ exports.getOrders = async (req, res, next) => {
 exports.createOrder = async (req, res, next) => {
   const { products } = req.body;
   const userId = req.userId;
+  io.getIO().emit('new-order', { action: 'processing' });
 
   try {
     const user = await Account.findById(userId);
-    if (!user)
+    if (!user) {
+      io.getIO().emit('new-order', { action: 'no-action' });
       throw createError('User not found!', 404);
+    }
 
     let totalCost = 0;
     products.forEach(p => totalCost = parseInt(totalCost + p.totalPrice));
@@ -52,11 +57,34 @@ exports.createOrder = async (req, res, next) => {
       totalCost
     });
     await order.save();
+
+    const orderGroups = await Order.aggregate([
+      {
+        $group: {
+          _id: '$orderStatus',
+          orders: {
+            $push: '$$ROOT',
+          }
+        }
+      },
+    ]);
+    const orders = orderGroups.map(g => {
+      return {
+        status: g._id,
+        orders: g.orders
+      };
+    });
+    io.getIO().emit('new-order', {
+      action: 'create',
+      orders: orders
+    });
+
     res.status(201).json({
       message: 'Order is await pending by admin :D',
       order
     })
   } catch (error) {
+    io.getIO().emit('new-order', { action: 'no-action' });
     errorHandler(req, error, next);
   }
 }

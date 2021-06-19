@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import { Form, Input, Button, Image, Typography } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
@@ -45,7 +46,7 @@ export default class SignupLayout extends Component {
                 <Form.Item
                   name="firstName"
                   rules={[{ required: true, message: 'Please input your first name!' }]}
-                  style={{marginRight: '5px'}}
+                  style={{ marginRight: '5px' }}
                 >
                   <Input placeholder={'First Name'} />
                 </Form.Item>
@@ -82,7 +83,7 @@ export default class SignupLayout extends Component {
               <Form.Item name="actions" valuePropName="checked" initialValue={false}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'right' }}>
                   <Button type='link' >
-                    Login with your account :D
+                    <NavLink to={'/login'}>Login with your account :D</NavLink>
                   </Button>
                 </div>
               </Form.Item>

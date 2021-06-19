@@ -20,6 +20,11 @@ class App extends Component {
   };
 
   componentDidMount() {
+    if (!("Notification" in window)) {
+      console.log("This browser does not support desktop notification");
+    } else {
+      Notification.requestPermission();
+    }
     if (!this.props.user)
       return;
 

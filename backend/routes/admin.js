@@ -10,7 +10,8 @@ const productController = require('../controllers/admin/product');
 const tableController = require('../controllers/admin/table');
 
 const {
-  getOrdersGroupByStatus
+  getOrdersGroupByStatus,
+  updateOrderCompleted
 } = orderController;
 const {
   getAccounts,
@@ -45,6 +46,8 @@ const Router = express.Router();
 //________________________________________________________________
 // GET /admin/orders
 Router.get('/orders', isAuth, getOrdersGroupByStatus);
+
+Router.put('/order-completed/:orderId', updateOrderCompleted);
 //________________________________________________________________
 
 // Products
